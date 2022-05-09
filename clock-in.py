@@ -10,7 +10,7 @@ import time
 import sys
 import ddddocr
 
-url = 'http://pushplus.hxtrip.com/send'
+url = 'http://www.pushplus.plus/send'
 msg = []
 
 def sendMsg(title, content):
@@ -18,7 +18,7 @@ def sendMsg(title, content):
         "token": "8c2b28862e9a4d638ca32b520f9bea36",
         "title": title,
         "content": content,
-        "template": "json",
+        "template": "jsons",
         "topic": 5244 # group
     }
     body=json.dumps(data).encode(encoding='utf-8')
