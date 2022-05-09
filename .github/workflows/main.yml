@@ -28,5 +28,6 @@ jobs:
         env:
           ACCOUNT: ${{ secrets.ACCOUNT }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
-          python3 clock-in.py ${ACCOUNT} ${PASSWORD} ${EAI_SESS}
+          python3 clock-in.py ${ACCOUNT} ${PASSWORD} ${TOKEN} ${EAI_SESS}
