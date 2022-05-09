@@ -207,8 +207,8 @@ def main(username, password):
             elif res['m'].find("验证码错误") != -1: # 验证码错误
                 print('再次尝试')
                 time.sleep(5)
-                main(username, password)
-                pass
+                res = main(username, password)
+                
             else:
                 raise Exception
         return res
