@@ -204,7 +204,10 @@ def main(username, password):
 if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
+    username = username.split('*')
+    password = password.split('*')
     try:
-        main(username, password)
+        for user, pswd in zip(username, password):
+            result = main(user, pswd)
     except Exception:
         exit(1)
