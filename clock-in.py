@@ -10,6 +10,21 @@ import time
 import sys
 import ddddocr
 
+url = 'http://pushplus.hxtrip.com/send'
+msg = []
+
+def sendMsg(title, content):
+    data = {
+        "token": token,
+        "title": title,
+        "content": content,
+        "template": "json",
+        "topic": 5244 # group
+    }
+    body=json.dumps(data).encode(encoding='utf-8')
+    headers = {'Content-Type':'application/json'}
+    requests.post(url, data=body, headers=headers)
+
 
 class ClockIn(object):
     """Hit card class
@@ -135,7 +150,6 @@ class ClockIn(object):
         result_int = pow(password_int, e_int, M_int)
         return hex(result_int)[2:].rjust(128, '0')
 
-
 # Exceptions
 class LoginError(Exception):
     """Login Exception"""
@@ -185,6 +199,7 @@ def main(username, password):
         res = dk.post()
         if str(res['e']) == '0':
             print('已为您打卡成功！')
+            
         else:
             print(res['m'])
             if res['m'].find("已经") != -1: # 已经填报过了 不报错
@@ -196,6 +211,7 @@ def main(username, password):
                 pass
             else:
                 raise Exception
+        return res
     except Exception:
         print('数据提交失败')
         raise Exception
@@ -204,10 +220,25 @@ def main(username, password):
 if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
-    username = username.split('*')
-    password = password.split('*')
+    token = sys.argv[3]
+    
+    username = username.split('-')
+    password = password.split('-')
+    
     try:
+        res = []
         for user, pswd in zip(username, password):
+            print(f"Current User {user}")
             result = main(user, pswd)
+            
+            res.append(
+                {
+                    "User": user,
+                    "Result" : result.get("m"),
+                }
+            )
+        print(res)
+        sendMsg("=== daka ===", res)
+        
     except Exception:
         exit(1)
