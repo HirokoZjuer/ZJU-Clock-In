@@ -15,7 +15,7 @@ msg = []
 
 def sendMsg(title, content):
     data = {
-        "token": token,
+        "token": "8c2b28862e9a4d638ca32b520f9bea36",
         "title": title,
         "content": content,
         "template": "json",
